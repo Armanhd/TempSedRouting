@@ -16,8 +16,6 @@ import numpy as np
 import os
 import scipy
 # %% reading hydroDF file which has all nzsegv2, HYDSEQ, FROM_NODE, TO_NODE
-main_dir_routing='C:/Users/haddadchia/OneDrive - NIWA/TEST-River/Calib4-files'
-routing_file='Manawatu_Routing_calib-4points.csv'
 
 import RiverRouting
 hydroDF, US_reach, fromArrayList, toArray, toArrayList,uniqueNodeList=RiverRouting.riverrouting(
@@ -26,20 +24,16 @@ hydroDF, US_reach, fromArrayList, toArray, toArrayList,uniqueNodeList=RiverRouti
 
 #%% import suspended sediment sizes, and alpha coefficients for each fraction
 
-main_dir='C:/Users/haddadchia/OneDrive - NIWA/TEST-River/Calib4-files'
-sediment_size_file='sediment-size-classes_Paper.csv'
 import SuspSedChar
 size_class, di, c_alpha=SuspSedChar.suspchar(main_dir,sediment_size_file)
 
 #%% import median riverbed diameter and critical stream power coefficients as dataframe
-# read median sediment, critical stream power, and dispersion factor
-median_sed_file='median-diam_critical_dispers_depos-depth_calib-4points_No2.csv'    #^^^^^^changed for each flood No^^^^^^
 
 import SedimentCoeff
 DmDF, cri_all_dict, Fi_dict, y_dict, xpoints_dict=SedimentCoeff.sedcoeff(main_dir,median_sed_file,size_class,fromArrayList,hydroDF)
 
 #%% import reach characteristics data (slope and distance from do)
-reach_charac_file='reach_characteristics-calibrate-4points.csv'
+
 
 import ReachChar
 slope_dict, reach_distance_dict, reachID_dict, Dm_dict, Dispersioncoeff_dict\
@@ -60,13 +54,6 @@ nu=0.0000010533 # kinematic viscosity [m^2/s]
 dt=60 *60   # time step 1 hour [s]
 
 #%% read flow data from TopNet
-
-flow_dir_name='C:/Users/haddadchia/OneDrive - NIWA/TEST-River/Calib4-files/TopNet-Flow-Calib-4points'    # Directory for TopNet flow data
-
-# Flood No 4
-firstdate='2018-05-22 13:00:00'     # first date to include the data, format= 'yyyy-mm-dd HH:MM:SS'
-lastdate='2018-05-24 00:00:00'      # last date to include the data, format= 'yyyy-mm-dd HH:MM:SS'
-
 
 import Hydrologicalinput
 datearray, unitflowdict, depthdict, Qdict=Hydrologicalinput.\
@@ -103,7 +90,6 @@ A1_dict, A2_dict, A3_dict, M1_dict, M2_dict, M3_dict=MatrixVars.matrixvar (
 
 #%% import C 
 # Add initial and boundary conditions for C (sediment concentration)    
-sediment_conc_file='Adjusted-data-Final.xlsx'
 import ICBCsediment
 C_dict=ICBCsediment.icbc (fromArrayList, Qinterp_dict,c_alpha,main_dir, sediment_conc_file )
 
