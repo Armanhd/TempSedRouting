@@ -3,3 +3,4 @@ This package introduces a new high temporal resolution suspended sediment routin
 It uses a hydrological model as a force. 
 The input data from hydrological model are: flow (m3/s), unit flow (m2/s) and water depth (m) at each time step and each section of the river network throughout the study catchment.
 River network characteristics including river bed gradient, and network connectivity is also another model input. 
+For details of the model check the publication: https://doi.org/10.1016/j.envsoft.2025.106417
